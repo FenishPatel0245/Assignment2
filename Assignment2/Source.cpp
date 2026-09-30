@@ -1,4 +1,47 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+struct STUDENT_DATA
+{
+    string firstName;
+    string lastName;
+};
+
 int main()
 {
-    return 1;
+    vector<STUDENT_DATA> students;
+    ifstream inputFile("StudentData.txt");
+
+    if (!inputFile.is_open())
+    {
+        cerr << "Error: Could not open StudentData.txt." << endl;
+        return 1;
+    }
+
+    string line;
+
+    while (getline(inputFile, line))
+    {
+        if (line.empty())
+        {
+            continue;
+        }
+
+        stringstream record(line);
+        STUDENT_DATA student;
+
+        getline(record, student.lastName, ',');
+        getline(record >> ws, student.firstName);
+
+        students.push_back(student);
+    }
+
+    inputFile.close();
+
+    return 0;
 }
