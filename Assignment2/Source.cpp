@@ -43,5 +43,15 @@ int main()
 
     inputFile.close();
 
+#ifdef _DEBUG
+    cout << "Student information:" << endl;
+    cout << "-------------------" << endl;
+    for (const STUDENT_DATA& student : students)
+    {
+        cout << student.firstName << " "
+            << student.lastName << endl;
+    }
+#endif
+
     return 0;
 }
